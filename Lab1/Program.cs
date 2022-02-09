@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Lab1
@@ -8,42 +9,48 @@ namespace Lab1
     {
         public static void Main(string[] args)
         {
-            Console.Write("Введіть назву першого файла:");
+            Console.Write("Name File1:");
             string fileName1 = Console.ReadLine();
-            Console.Write("Введіть текст для першого файла:");
+            Console.WriteLine("Text File1:");
             string userText1 = InputText();
             CreateAndWriteFile(fileName1,userText1);
-            Console.Write("\nВведіть назву другого файла:");
+            Console.Write("\nName File2:");
             string fileName2 = Console.ReadLine();
-            Console.Write("Введіть текст для другого файла:");
+            Console.WriteLine("Text File2:");
             string UserText2 = InputText();
             CreateAndWriteFile(fileName2,UserText2);
             string resultPath;
             CreateUnitFile(fileName1,fileName2,out resultPath);
-            Console.WriteLine("\nТекст з третього файла: ");
+            Console.WriteLine("\nUnit Text: ");
             string text = ReadText(resultPath);
             Console.WriteLine(text);
             int countOfRow = CountOfRow(resultPath);
-            Console.Write($"\nКількість рядків в третьому файлі:{countOfRow}");
+            Console.WriteLine($"Count of raw in result file: {countOfRow}");
+
 
 
         }
 
         public static string InputText()
         {
-            string text = null;
-            while (Console.ReadKey().Key != ConsoleKey.Delete)
+            List<string> str = new List<string>();
+            do
             {
-                text += (text==null?"":"\n") + Console.ReadLine();
-                
-            }
+                var a = Console.ReadKey();
+                if (a.Key == ConsoleKey.Delete)
+                {
+                    break;
+                }
+                str.Add(a.KeyChar + Console.ReadLine());
 
-            return text;
+            } while (str.Last() != null);
+            return string.Join("\n",str);
+            
         }
         
         public static void CreateAndWriteFile(string name, string text)
         {
-            string path = @$"D:\OP2 Lab\Lab1\{name}.txt";
+            string path = $"{name}.txt";
             using (StreamWriter file = new StreamWriter(path,true))
             {
                 file.Write(text);
@@ -52,12 +59,12 @@ namespace Lab1
 
         public static void CreateUnitFile(string file1,string file2,out string resultPath)
         {
-            string pathOfFirstFile = @$"D:\OP2 Lab\Lab1\{file1}.txt";
-            string pathOfSeconfFile = @$"D:\OP2 Lab\Lab1\{file2}.txt";
+            string pathOfFirstFile = $"{file1}.txt";
+            string pathOfSeconfFile = $"{file2}.txt";
             string textFromFirstFile = ReadText(pathOfFirstFile);
             string textFromSecondFile = ReadText(pathOfSeconfFile);
             string unitText = textFromFirstFile + "\n" + textFromSecondFile;
-            resultPath = @"D:\OP2 Lab\Lab1\result.txt";
+            resultPath = "result.txt";
             using (StreamWriter file = new StreamWriter(resultPath,true))
             {
                 file.Write(unitText);
