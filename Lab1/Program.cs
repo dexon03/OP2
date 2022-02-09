@@ -43,7 +43,7 @@ namespace Lab1
                 }
                 str.Add(a.KeyChar + Console.ReadLine());
 
-            } while (str.Last() != null);
+            } while (true);
             return string.Join("\n",str);
             
         }
