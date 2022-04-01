@@ -64,15 +64,10 @@ namespace Lab2dotnet
 
         public static bool ValidTime(string time)
         {
-            Regex regex = new Regex(@"\d{2}:\d{2}");
+            Regex regex = new Regex(@"\b((09|1[0-7]):([0-5][0-9]\b))|18:00\b");
             if (regex.IsMatch(time))
             {
-                string[] digits = time.Split(new[] {':'});
-                if (Int32.Parse(digits[0]) <= 18 && Int32.Parse(digits[0]) >= 9 && Int32.Parse(digits[1]) < 60 &&
-                    Int32.Parse(digits[0]) > 0)
-                {
-                    return true;
-                }
+                return true;
             }
             return false;
         }
