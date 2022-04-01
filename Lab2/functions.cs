@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -124,9 +124,9 @@ namespace Lab2dotnet
             List<string[]> resultList = new List<string[]>();
             for (int i = 0; i < list.Count; i++)
             {
-                DateTime time1 = DateTime.Parse(list[i][1]);
-                DateTime time2 = DateTime.Parse(list[i][2]);
-                if ((time2 - time1).Minutes >= 30)
+                string[] time_start = list[i][1].Split(new[] {':'});
+                string[] time_end = list[i][2].Split(new[] {':'});
+                if (isSpecial(time_start, time_end))
                 {
                     resultList.Add(list[i]);
                 }
@@ -135,6 +135,27 @@ namespace Lab2dotnet
             return resultList;
         }
 
+        public static bool isSpecial(string[] time_start, string[] time_end)
+        {
+            int hours_start = Int32.Parse(time_start[0]);
+            int hours_end = Int32.Parse(time_end[0]);
+            int minutes_start = Int32.Parse(time_start[1]);
+            int minutes_end = Int32.Parse(time_end[1]);
+            if (hours_end - hours_start == 1)
+            {
+                if (minutes_start>30 && minutes_end < 30 && 60-minutes_start+minutes_end < 30)
+                {
+                    return false;
+                }
+            }
 
+            int delta = minutes_end - minutes_start;
+            if (hours_start == hours_end &&  delta < 30)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }
