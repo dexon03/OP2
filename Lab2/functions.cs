@@ -126,7 +126,7 @@ namespace Lab2dotnet
             {
                 DateTime time1 = DateTime.Parse(list[i][1]);
                 DateTime time2 = DateTime.Parse(list[i][2]);
-                if ((time2 - time1).Minutes > 30)
+                if ((time2 - time1).Minutes >= 30)
                 {
                     resultList.Add(list[i]);
                 }
