@@ -1,0 +1,7 @@
+E:\Repository\Lab4\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
+E:\Repository\Lab4\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
+E:\Repository\Lab4\ConsoleApplication1\obj\Debug\ConsoleApplication1.csproj.AssemblyReference.cache
+E:\Repository\Lab4\ConsoleApplication1\obj\Debug\ConsoleApplication1.csproj.SuggestedBindingRedirects.cache
+E:\Repository\Lab4\ConsoleApplication1\obj\Debug\ConsoleApplication1.csproj.CoreCompileInputs.cache
+E:\Repository\Lab4\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
+E:\Repository\Lab4\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
