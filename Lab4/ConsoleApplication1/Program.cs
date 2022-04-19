@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using static ConsoleApplication1.Functions;
 
 namespace ConsoleApplication1
 {
@@ -6,18 +8,13 @@ namespace ConsoleApplication1
     {
         public static void Main(string[] args)
         {
-            // for (int i = 12; i > 0; i--)
-            // {
-            //     Data test = new Data(1, i, 2003);
-            //     Console.WriteLine($"{i}: {Data.RemainedUntilEndOfTheYear(test)}");
-            // }
-
-            Console.Write("Введіть дату в форматі DD/MM/YY або DD/MM:");
-            while (true)
+            List<Data> dates = new List<Data>();
+            Console.Write("Введіть дату в форматі DD.MM.YYYY або DD.MM: ");
+            for (int i = 0; i < 2; i++)
             {
-                string date = Console.ReadLine();
+                string line = Console.ReadLine();
+                dates.Add(Data.Parse(line));
             }
-            
 
         }
     }

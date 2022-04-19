@@ -1,4 +1,5 @@
-﻿using System.Runtime.Remoting.Messaging;
+﻿using System;
+using System.Runtime.Remoting.Messaging;
 
 namespace ConsoleApplication1
 {
@@ -142,6 +143,24 @@ namespace ConsoleApplication1
 
             int result = 31 - obj.day + monthInDays;
             return result;
+        }
+
+        public void Print()
+        {
+            Console.WriteLine($"DD:{day} MM:{month} YYYY:{year}");
+        }
+        
+        public static Data Parse(string date)
+        {
+            string[] list = date.Split(new[] {'.'});
+            int day = Int32.Parse(list[0]);
+            int month = Int32.Parse(list[1]);
+            if (list.Length == 2)
+            {
+                return new Data(day,month);
+            }
+            int year = Int32.Parse(list[2]);
+            return new Data(day,month,year);
         }
     }
 }
