@@ -62,19 +62,10 @@ namespace ConsoleApplication1
                 obj.month = 1;
                 return obj;
             }
-            if (obj.month == 2 && obj.day == 28)
-            {
-                obj.month++;
-                obj.day = 1;
-                return obj;
-            }
-            if (obj.month <= 7 && (obj.day == 31 && obj.month % 2 != 0 || obj.day == 30 && obj.month % 2 == 0))
-            {
-                obj.month++;
-                obj.day = 1;
-                return obj;
-            }
-            if (obj.month > 7 && (obj.day == 30 && obj.month % 2 != 0 || obj.day == 31 && obj.month % 2 == 0))
+            if ((obj.month <= 7 && (obj.day == 31 && obj.month % 2 != 0 || obj.day == 30 && obj.month % 2 == 0)) || 
+                (obj.month > 7 && (obj.day == 30 && obj.month % 2 != 0 || obj.day == 31 && obj.month % 2 == 0)) || 
+                (obj.month == 2 && obj.day == 28)
+                )
             {
                 obj.month++;
                 obj.day = 1;

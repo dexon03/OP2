@@ -27,7 +27,7 @@ namespace ConsoleApplication1
             Console.WriteLine("Дата D1 збільшена на 1 місяць:");
             dates[0].Print();
             --dates[1];
-            Console.WriteLine("Дата D1 збільшена на 1 день:");
+            Console.WriteLine("Дата D2 збільшена на 1 день:");
             dates[1].Print();
             if (dates[0] > dates[1])
             {
