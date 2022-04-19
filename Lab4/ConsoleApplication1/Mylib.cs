@@ -44,12 +44,42 @@ namespace ConsoleApplication1
 
         public static Data operator ++(Data obj)
         {
+            if (obj.month == 12)
+            {
+                obj.year++;
+                obj.month = 1;
+                return obj;
+            }
             obj.month++;
             return obj;
         }
 
         public static Data operator --(Data obj)
         {
+            if (obj.month == 12 && obj.day == 31)
+            {
+                obj.year++;
+                obj.month = 1;
+                return obj;
+            }
+            if (obj.month == 2 && obj.day == 28)
+            {
+                obj.month++;
+                obj.day = 1;
+                return obj;
+            }
+            if (obj.month <= 7 && (obj.day == 31 && obj.month % 2 != 0 || obj.day == 30 && obj.month % 2 == 0))
+            {
+                obj.month++;
+                obj.day = 1;
+                return obj;
+            }
+            if (obj.month > 7 && (obj.day == 30 && obj.month % 2 != 0 || obj.day == 31 && obj.month % 2 == 0))
+            {
+                obj.month++;
+                obj.day = 1;
+                return obj;
+            }
             obj.day++;
             return obj;
         }
@@ -147,7 +177,7 @@ namespace ConsoleApplication1
 
         public void Print()
         {
-            Console.WriteLine($"DD:{day} MM:{month} YYYY:{year}");
+            Console.WriteLine($"Day:{day} Month:{month} Year:{year}");
         }
         
         public static Data Parse(string date)
