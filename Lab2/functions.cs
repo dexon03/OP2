@@ -1,11 +1,12 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text.RegularExpressions;
 
 namespace Lab2dotnet
 {
-    public static class functions
+    public static class Functions
     {
         public static List<string[]> InputText()
         {
@@ -36,12 +37,12 @@ namespace Lab2dotnet
                     do
                     {
                         person[2] = Console.ReadLine();
-                        if (ValidTime(person[2]) && isAdmissible(person[1],person[2])) break;
+                        if (ValidTime(person[2]) && IsAdmissible(person[1],person[2])) break;
 
                         Console.Write("Ви ввели час в неправильному форматі, або недопустипі значення. Будь ласка введіть коректний час:");
                     } while (true);
 
-                    if (!isCrossing(list, person[1], person[2])) break;
+                    if (!IsCrossing(list, person[1], person[2])) break;
                     
 
                     Console.WriteLine("Час прийому який ви ввели неможливий, оскільки пересікаєтся з вже існуючими клієнтами, спробуйте ще раз.");
@@ -54,11 +55,11 @@ namespace Lab2dotnet
             return list;
         }
 
-        public static bool isAdmissible(string time1, string time2)
+        public static bool IsAdmissible(string time1, string time2)
         {
-            DateTime time_start = DateTime.Parse(time1);
-            DateTime time_end = DateTime.Parse(time2);
-            if (time_end < time_start) return false;
+            DateTime timeStart = DateTime.Parse(time1);
+            DateTime timeEnd = DateTime.Parse(time2);
+            if (timeEnd < timeStart) return false;
             return true;
         }
 
@@ -72,49 +73,48 @@ namespace Lab2dotnet
             return false;
         }
 
-        public static bool isCrossing(List<string[]> list, string time_start, string time_end)
+        public static bool IsCrossing(List<string[]> list, string timeStart, string timeEnd)
         {
             if (list.Count != 0)
             {
-                DateTime date_start1 = DateTime.Parse(time_start);
-                DateTime date_end1 = DateTime.Parse(time_end);
+                DateTime dateStart1 = DateTime.Parse(timeStart);
+                DateTime dateEnd1 = DateTime.Parse(timeEnd);
                 for (int i = 0; i < list.Count; i++)
                 {
-                    DateTime date_start2 = DateTime.Parse(list[i][1]);
-                    DateTime date_end2 = DateTime.Parse(list[i][2]);
-                    if (date_start1 > date_start2 && date_start1 < date_end2 ||
-                        date_end1 > date_start2 && date_end1 < date_end2)
+                    DateTime dateStart2 = DateTime.Parse(list[i][1]);
+                    DateTime dateEnd2 = DateTime.Parse(list[i][2]);
+                    if (dateStart1 > dateStart2 && dateStart1 < dateEnd2 ||
+                        dateEnd1 > dateStart2 && dateEnd1 < dateEnd2)
                     {
                         return true;
                     }
                 }
             }
-            
-
             return false;
         }
 
         public static void CreateAndWriteFile(string path,List<string[]> list)
         {
-            
-            using (BinaryWriter writer = new BinaryWriter(File.Open(path, FileMode.OpenOrCreate)))
+            BinaryFormatter formatter = new BinaryFormatter();
+            using (FileStream writer = new FileStream(path, FileMode.OpenOrCreate))
             {
-                string line = null;
-                for (int i = 0; i < list.Count; i++)
-                {
-                    line += (line==null?"":"\n")+  $"Прізвище:{list[i][0]}\t Час приходу: {list[i][1]}\t Час закінчення:{list[i][2]}";
-                    
-                }
-                writer.Write(line);
+                formatter.Serialize(writer,list);
             }
 
         }
 
         public static string ReadFile(string path)
         {
-            using (BinaryReader reader = new BinaryReader(File.Open(path,FileMode.Open)))
+            BinaryFormatter formatter = new BinaryFormatter();
+            using (FileStream writer = new FileStream(path, FileMode.OpenOrCreate))
             {
-                string text = reader.ReadString();
+                List<string[]> list = (List<string[]>) formatter.Deserialize(writer);
+                string text = null;
+                for (int i = 0; i < list.Count; i++)
+                {
+                    text += (text==null?"":"\n")+  $"Прізвище:{list[i][0]}\t Час приходу: {list[i][1]}\t Час закінчення:{list[i][2]}";
+                    
+                }
                 return text;
             }
         }
@@ -124,9 +124,9 @@ namespace Lab2dotnet
             List<string[]> resultList = new List<string[]>();
             for (int i = 0; i < list.Count; i++)
             {
-                string[] time_start = list[i][1].Split(new[] {':'});
-                string[] time_end = list[i][2].Split(new[] {':'});
-                if (isSpecial(time_start, time_end))
+                string[] timeStart = list[i][1].Split(new[] {':'});
+                string[] timeEnd = list[i][2].Split(new[] {':'});
+                if (IsSpecial(timeStart, timeEnd))
                 {
                     resultList.Add(list[i]);
                 }
@@ -135,22 +135,22 @@ namespace Lab2dotnet
             return resultList;
         }
 
-        public static bool isSpecial(string[] time_start, string[] time_end)
+        public static bool IsSpecial(string[] timeStart, string[] timeEnd)
         {
-            int hours_start = Int32.Parse(time_start[0]);
-            int hours_end = Int32.Parse(time_end[0]);
-            int minutes_start = Int32.Parse(time_start[1]);
-            int minutes_end = Int32.Parse(time_end[1]);
-            if (hours_end - hours_start == 1)
+            int hoursStart = Int32.Parse(timeStart[0]);
+            int hoursEnd = Int32.Parse(timeEnd[0]);
+            int minutesStart = Int32.Parse(timeStart[1]);
+            int minutesEnd = Int32.Parse(timeEnd[1]);
+            if (hoursEnd - hoursStart == 1)
             {
-                if (minutes_start>30 && minutes_end < 30 && 60-minutes_start+minutes_end < 30)
+                if (minutesStart>30 && minutesEnd < 30 && 60-minutesStart+minutesEnd < 30)
                 {
                     return false;
                 }
             }
 
-            int delta = minutes_end - minutes_start;
-            if (hours_start == hours_end &&  delta < 30)
+            int delta = minutesEnd - minutesStart;
+            if (hoursStart == hoursEnd &&  delta < 30)
             {
                 return false;
             }
