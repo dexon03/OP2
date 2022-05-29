@@ -1,7 +1,0 @@
-E:\Repository\Lab5\bin\Debug\Lab5.exe
-E:\Repository\Lab5\bin\Debug\Lab5.pdb
-E:\Repository\Lab5\obj\Debug\Lab5.csproj.AssemblyReference.cache
-E:\Repository\Lab5\obj\Debug\Lab5.csproj.SuggestedBindingRedirects.cache
-E:\Repository\Lab5\obj\Debug\Lab5.csproj.CoreCompileInputs.cache
-E:\Repository\Lab5\obj\Debug\Lab5.exe
-E:\Repository\Lab5\obj\Debug\Lab5.pdb
