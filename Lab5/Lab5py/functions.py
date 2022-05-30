@@ -6,6 +6,8 @@ def is_valid1(date):
     for symbol in arr:
         if not symbol.isdigit():
             return False
+    if len(arr) != 3:
+        return False
     day = int(arr[0])
     month = int(arr[1])
     year = int(arr[2])
@@ -19,6 +21,8 @@ def is_valid2(date):
     for symbol in arr:
         if not symbol.isdigit():
             return False
+    if len(arr) != 3:
+        return False
     day = int(arr[1])
     month = int(arr[0])
     year = int(arr[2])
@@ -47,26 +51,27 @@ def list_dates_between(list1, list2, date1, date2):
         if ele.compare_to(date1) >= 0 and ele.compare_to(date2) <= 0:
             result.append(ele.__str__())
     return result
+
+
 def input1(list, n):
     for i in range(n):
         print("Введіть дату для першого об'єкта в форматі 'ЧЧ.ММ.РРРР': ")
         date = ''
-        while(True):
+        while (True):
             date = input()
             if is_valid1(date):
                 break
             print("Ви ввели дату в неправильному форматі, спробуйте ще раз: ")
         list.append(TDate1(date))
 
+
 def input2(list, n):
     for i in range(n):
         print("Введіть дату для другого об'єкта в форматі 'ММ-ЧЧ-РРРР': ")
         date = ''
-        while(True):
+        while (True):
             date = input()
             if is_valid2(date):
                 break
             print("Ви ввели дату в неправильному форматі, спробуйте ще раз: ")
         list.append(TDate2(date))
-
-
