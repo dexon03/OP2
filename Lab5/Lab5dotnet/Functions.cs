@@ -12,6 +12,8 @@ namespace Lab5
             {
                 if (!int.TryParse(VARIABLE, out int number)) return false;
             }
+
+            if (arr.Length != 3) return false;
             int day = Int32.Parse(arr[0]);
             int month = Int32.Parse(arr[1]);
             int year = Int32.Parse(arr[2]);
@@ -25,6 +27,7 @@ namespace Lab5
             {
                 if (!int.TryParse(VARIABLE, out int number)) return false;
             }
+            if (arr.Length != 3) return false;
             int day = Int32.Parse(arr[1]);
             int month = Int32.Parse(arr[0]);
             int year = Int32.Parse(arr[2]);
